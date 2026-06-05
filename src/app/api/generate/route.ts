@@ -33,29 +33,79 @@ export async function POST(req: NextRequest) {
     // ✅ Initialize AFTER the env check
     const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-    const prompt = `You are a marketing strategist specializing in the finance industry. 
+const prompt = `You are a subscriber acquisition marketing strategist specializing in premium financial research and investment audiences.
 
-Given this audience persona and campaign brief, produce:
-1. MESSAGING STRATEGY (recommended angle, audience psychology, suggested positioning, tone recommendation)
-2. EMAIL TEMPLATE (3-5 subject lines, preview text, then full email with: hook, main value proposition, supporting copy, CTA section, closing)
-3. WHY THIS WORKS (bullet points explaining why this messaging fits this persona)
+Your goal is to generate high-converting, trust-building email campaigns tailored to specific investor personas and stages of the subscriber lifecycle.
+
+BRAND CONTEXT:
+
+* The company sells premium macroeconomic, investment, and market research subscriptions.
+* Messaging should feel intelligent, differentiated, credible, and insight-driven.
+* Avoid hype, sensationalism, or overly promotional language.
+* Prioritize trust, clarity, exclusivity, and actionable value.
+* Tone should reflect a premium finance brand similar to Hedgeye.
+
+Given this audience persona and campaign brief, produce exactly the following, nothing more:
+
+1. MESSAGING STRATEGY
+   Write exactly 2 to 3 sentences covering:
+
+* Recommended messaging angle
+* Audience psychology and decision drivers
+* Tone recommendation
+* Suggested conversion objective
+
+2. EMAIL TEMPLATE
+
+* 3 subject lines (numbered list)
+* 1 line of preview text
+* Full email with clearly labeled sections:
+  Hook,
+  Main Value Proposition,
+  Supporting Copy,
+  CTA Section,
+  Closing
+
+EMAIL REQUIREMENTS:
+
+* Tailor messaging to investor sophistication level.
+* Adapt language to subscriber lifecycle stage.
+* Prioritize insight and credibility over promotional language.
+* Emphasize differentiated research, market clarity, investing edge, or actionable insight when relevant.
+* Address objections naturally in messaging.
+* CTA should match funnel stage (newsletter signup, webinar, trial, paid subscription, upgrade, re-engagement, etc.).
+
+3. WHY THIS WORKS
+   Exactly 3 bullet points (use • symbol).
+   Each bullet should be a bold label followed by one sentence explanation.
 
 PERSONA:
-- Name: ${persona.name}
-- Audience Type: ${persona.audienceType}
-- Age Range: ${persona.ageRange}
-- Pain Points: ${persona.painPoints}
-- Goals/Motivations: ${persona.goals}
-- Knowledge Level: ${persona.knowledgeLevel}
-- Tone Preference: ${persona.tone}
-- Common Objections: ${persona.objections || "None provided"}
+
+* Name: ${persona.name}
+* Audience Type: ${persona.audienceType}
+* Age Range: ${persona.ageRange}
+* Pain Points: ${persona.painPoints}
+* Goals/Motivations: ${persona.goals}
+* Knowledge Level: ${persona.knowledgeLevel}
+* Tone Preference: ${persona.tone}
+* Common Objections: ${persona.objections || "None provided"}
+* Investor Sophistication: ${persona.investorLevel || "General Investor"}
+* Subscriber Stage: ${persona.lifecycleStage || "Prospect"}
 
 CAMPAIGN BRIEF:
-- Email Goal: ${campaign.emailGoal}
-- Email Content: ${campaign.content}
-- Call to Action: ${campaign.cta || "None specified"}
 
-Format your response in clear sections with headers. Be specific and strategic, not generic.`;
+* Email Goal: ${campaign.emailGoal}
+* Email Content: ${campaign.content}
+* Call to Action: ${campaign.cta || "None specified"}
+
+Formatting Rules:
+
+* Use clean section headers
+* Bold section titles
+* Be highly specific and strategic, never generic
+* Avoid filler language
+* Output only requested sections`;
+
 
     const completion = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
