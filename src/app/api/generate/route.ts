@@ -74,6 +74,7 @@ EMAIL REQUIREMENTS:
 * Emphasize differentiated research, market clarity, investing edge, or actionable insight when relevant.
 * Address objections naturally in messaging.
 * CTA should match funnel stage (newsletter signup, webinar, trial, paid subscription, upgrade, re-engagement, etc.).
+* This email should only be 200 words maximum with the hook, value prop, supporting copy, and CTA
 
 3. WHY THIS WORKS
    Exactly 3 bullet points (use • symbol).
